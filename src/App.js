@@ -22,9 +22,9 @@ function App() {
     console.log("권한 요청 중...");
 
     const permission = await Notification.requestPermission();
+    setToken(permission);
     if (permission === "denied") {
       console.log("알림 권한 허용 안됨");
-      setToken("알림 권한 허용 안됨");
       return;
     }
 
