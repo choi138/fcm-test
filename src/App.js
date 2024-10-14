@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 function App() {
+  const [token, setToken] = useState("");
+
   const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: "test-77775.firebaseapp.com",
@@ -31,8 +33,10 @@ function App() {
       vapidKey: process.env.REACT_APP_VAPID_KEY,
     });
 
-    if (token) console.log("token: ", token);
-    else console.log("Can not get Token");
+    if (token) {
+      setToken(token);
+      console.log("token: ", token);
+    } else console.log("Can not get Token");
 
     onMessage(messaging, (payload) => {
       console.log("메시지가 도착했습니다.", payload);
@@ -43,7 +47,7 @@ function App() {
   useEffect(() => {
     requestPermission();
   }, []);
-  return <h1>Test Firebase Cloud Message</h1>;
+  return <h1>Test Firebase Cloud Message {token}</h1>;
 }
 
 export default App;
