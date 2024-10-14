@@ -20,6 +20,7 @@ function App() {
 
   async function requestPermission() {
     console.log("권한 요청 중...");
+    setToken("권한 요청 중...");
 
     const permission = await Notification.requestPermission();
     setToken(permission);
@@ -46,6 +47,7 @@ function App() {
   }
 
   useEffect(() => {
+    setToken("초기 시작");
     requestPermission();
   }, []);
   return <h1>Test Firebase Cloud Message {token}</h1>;
