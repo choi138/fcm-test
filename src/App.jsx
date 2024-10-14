@@ -28,21 +28,21 @@ function App() {
 
   async function requestPermission() {
     //requesting permission using Notification API
-    const permission = await Notification.requestPermission();
+    Notification.requestPermission().then(async (permission) => {
+      if (permission === "granted") {
+        const token = await getToken(messaging, {
+          vapidKey:
+            "BHaqQDV06Y0242a7KNxyDxntJB6muVFtIGwUQXErf_j1MNm1ipwecD0pEer8S0Iplvp1u78BaU3WE7_jywxJCNc",
+        });
 
-    if (permission === "granted") {
-      const token = await getToken(messaging, {
-        vapidKey:
-          "BHaqQDV06Y0242a7KNxyDxntJB6muVFtIGwUQXErf_j1MNm1ipwecD0pEer8S0Iplvp1u78BaU3WE7_jywxJCNc",
-      });
-
-      //We can send token to server
-      console.log("Token generated : ", token);
-      setFcmToken(token);
-    } else if (permission === "denied") {
-      //notifications are blocked
-      alert("You denied for the notification");
-    }
+        //We can send token to server
+        console.log("Token generated : ", token);
+        setFcmToken(token);
+      } else if (permission === "denied") {
+        //notifications are blocked
+        alert("You denied for the notification");
+      }
+    });
   }
 
   useEffect(() => {
