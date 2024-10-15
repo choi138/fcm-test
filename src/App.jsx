@@ -31,11 +31,18 @@ function App() {
     Notification.requestPermission().then(async (permission) => {
       if (permission === "granted") {
         setMessage("Notification permission granted.");
-        const token = await getToken(messaging, {
+        await getToken(messaging, {
           vapidKey:
             "BHaqQDV06Y0242a7KNxyDxntJB6muVFtIGwUQXErf_j1MNm1ipwecD0pEer8S0Iplvp1u78BaU3WE7_jywxJCNc",
+        }).then((currentToken) => {
+          if (currentToken) {
+            setMessage("Token generated : " + currentToken);
+          } else {
+            setMessage(
+              "No registration token available. Request permission to generate one."
+            );
+          }
         });
-        setMessage("Token generated : " + token);
       } else {
         setMessage("Unable to get permission to notify.");
       }
