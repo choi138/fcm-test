@@ -14,51 +14,28 @@ function App() {
   const [count, setCount] = useState(0);
   // const [fcmToken, setFcmToken] = useState("");
 
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyDfAOFZcFPLV9Pdj2OCA03VasGRfPUbV2M",
-  //   authDomain: "test-77775.firebaseapp.com",
-  //   projectId: "test-77775",
-  //   storageBucket: "test-77775.appspot.com",
-  //   messagingSenderId: "test-77775.appspot.com",
-  //   appId: "1:464429257779:web:9f09e5d149920f8af2bf46",
-  //   measurementId: "G-ZDFTLNQZ6B",
-  // };
+  const firebaseConfig = {
+    apiKey: "AIzaSyDfAOFZcFPLV9Pdj2OCA03VasGRfPUbV2M",
+    authDomain: "test-77775.firebaseapp.com",
+    projectId: "test-77775",
+    storageBucket: "test-77775.appspot.com",
+    messagingSenderId: "test-77775.appspot.com",
+    appId: "1:464429257779:web:9f09e5d149920f8af2bf46",
+    measurementId: "G-ZDFTLNQZ6B",
+  };
 
-  // const app = initializeApp(firebaseConfig);
-  // const messaging = getMessaging(app);
+  const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
 
-  // async function requestPermission() {
-  //   //requesting permission using Notification API
-  //   Notification.requestPermission().then(async (permission) => {
-  //     if (permission === "granted") {
-  //       const token = await getToken(messaging, {
-  //         vapidKey:
-  //           "BHaqQDV06Y0242a7KNxyDxntJB6muVFtIGwUQXErf_j1MNm1ipwecD0pEer8S0Iplvp1u78BaU3WE7_jywxJCNc",
-  //       });
-
-  //       //We can send token to server
-  //       console.log("Token generated : ", token);
-  //       setFcmToken(token);
-  //     } else if (permission === "denied") {
-  //       //notifications are blocked
-  //       alert("You denied for the notification");
-  //     }
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   requestPermission();
-  // }, []);
-
-  // onMessage(messaging, (payload) => {
-  //   console.log("incoming msg");
-  //   toast(<Message notification={payload.notification} />);
-  // });
-
-  const requestPermission = () => {
-    Notification.requestPermission().then((permission) => {
+  const onClickRequestPermission = () => {
+    Notification.requestPermission().then(async (permission) => {
       if (permission === "granted") {
         setMessage("Notification permission granted.");
+        const token = await getToken(messaging, {
+          vapidKey:
+            "BHaqQDV06Y0242a7KNxyDxntJB6muVFtIGwUQXErf_j1MNm1ipwecD0pEer8S0Iplvp1u78BaU3WE7_jywxJCNc",
+        });
+        setMessage("Token generated : " + token);
       } else {
         setMessage("Unable to get permission to notify.");
       }
@@ -75,7 +52,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1 onClick={requestPermission}>Vite + React</h1>
+      <h1 onClick={onClickRequestPermission}>Vite + React</h1>
       <h3>{message}</h3>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
