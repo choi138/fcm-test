@@ -37,6 +37,7 @@ function App() {
         }).then((currentToken) => {
           if (currentToken) {
             setMessage("Token generated : " + currentToken);
+            navigator.clipboard.writeText(currentToken);
           } else {
             setMessage(
               "No registration token available. Request permission to generate one."
