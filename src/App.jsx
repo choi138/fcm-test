@@ -33,7 +33,7 @@ function App() {
         setMessage("Notification permission granted.");
         await getToken(messaging, {
           vapidKey:
-            "BHaqQDV06Y0242a7KNxyDxntJB6muVFtIGwUQXErf_j1MNm1ipwecD0pEer8S0Iplvp1u78BaU3WE7_jywxJCNc",
+            "BPEGSuHyY2u3jE5grBXNyLgWdbWEf_uAO-GEcF9ADb5zp49txRQpgL3QLH-jd9bqqg_u9fNPwsxThoJanOxy7J0",
         }).then((currentToken) => {
           if (currentToken) {
             setMessage("Token generated : " + currentToken);
