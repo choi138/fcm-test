@@ -21,7 +21,7 @@ self.addEventListener("push", function (e) {
   };
   console.log("push: ", { resultData, notificationTitle, notificationOptions });
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  self.registration.showNotification("", notificationOptions);
 });
 
 self.addEventListener("notificationclick", function (event) {
